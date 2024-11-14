@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tech Horizon{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'events/style.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Tech Horizon</h1>
+        <nav>
+            <a href="#career-paths">Career Paths</a>
+            <a href="#events">Events</a>
+            <a href="#speakers">Speakers</a>
+            <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'login' %}">Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Tech Horizon | <a href="#">Contact Us</a> | <a href="#">FAQ</a></p>
+        <p>Follow us on <a href="#">Social Media</a></p>
+    </footer>
+</body>
+</html>
