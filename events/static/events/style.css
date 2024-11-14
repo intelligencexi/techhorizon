@@ -1,0 +1,176 @@
+        /* Basic reset and styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f8fb;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: #0066cc;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        header nav a {
+            color: #cce6ff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1rem;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #e6f2ff;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: #004080;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 10px 0 20px;
+            color: #555;
+        }
+
+        .cta-btn {
+            background-color: #0099ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        /* Career Path Section */
+        .career-paths {
+            padding: 40px 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .career-card {
+            background-color: white;
+            width: 250px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .career-card h3 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+
+        /* Events Section */
+        .events {
+            background-color: #f4f8fb;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .events h2 {
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        .event {
+            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        /* Registration and Login Form Section */
+        .form-section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .form-section h2 {
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container button {
+            background-color: #0099ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Speaker Section */
+        .speakers {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .speakers h2 {
+            color: #004080;
+            margin-bottom: 20px;
+        }
+
+        .speaker-card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px auto;
+            width: 250px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #cce6ff;
+            text-decoration: none;
+        }

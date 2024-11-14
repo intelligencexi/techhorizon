@@ -1,0 +1,33 @@
+{% extends 'events/base.html' %}
+{% load static %}
+{% block content %}
+
+<section id="register" class="form-section">
+    <h2>Register for Tech Horizon</h2>
+    <div class="form-container">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <select name="interest" required>
+                <option value="" disabled selected>Select an Area of Interest</option>
+                <option value="software-development">Software Development</option>
+                <option value="cybersecurity">Cybersecurity</option>
+                <option value="data-science">Data Science</option>
+                <option value="ai">Artificial Intelligence</option>
+            </select>
+            <button type="submit">Register Now</button>
+        </form>
+        
+        <!-- Display messages for form feedback -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
