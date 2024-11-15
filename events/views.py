@@ -44,7 +44,7 @@ def register(request):
                     success_message = f"Thank you, {name}! You have successfully registered for the event."
                     messages.success(request, success_message)
                     logger.info(f"New registration: {name} ({email}) - Interest: {interest}")
-                    return HttpResponse("You have successfully registered for the event")
+                    return render(request, 'events/register.html')
                 except Exception as e:
                     error_message = "An unexpected error occurred while saving your registration. Please try again."
                     messages.error(request, error_message)
@@ -60,6 +60,8 @@ def register(request):
     return render(request, 'events/register.html', {'form': form})
 
 
+# def after_reg(request):
+#     return render(request, 'events/register.html')
 
 # def register(request):
 #     if request.method == 'POST':
