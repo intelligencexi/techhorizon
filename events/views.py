@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .forms import RegistrationForm, LoginForm, AdminRegistrationForm
 from .models import Registrant
@@ -11,47 +11,82 @@ import logging
 logger = logging.getLogger('events')
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import RegistrationForm
+from .models import Registrant
+import logging
+
+# Initialize logger
+logger = logging.getLogger(__name__)
 
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            
+            name = form.cleaned_data['name']
+            interest = form.cleaned_data['interest']
+
             # Check if email already exists
             if Registrant.objects.filter(email=email).exists():
-                messages.error(request, "Email is already registered. Please use a different email.")
+                message = f"The email {email} is already registered. Please use a different email."
+                messages.error(request, message)
+                logger.warning(f"Registration failed for {name} - {message}")
             else:
-                # Save the data to the Registrant model
-                Registrant.objects.create(
-                    name=form.cleaned_data['name'],
-                    email=email,
-                    interest=form.cleaned_data['interest']
-                )
-                messages.success(request, "You have successfully registered for this event.")
-                return redirect('login')
+                try:
+                    # Save the data to the Registrant model
+                    Registrant.objects.create(
+                        name=name,
+                        email=email,
+                        interest=interest
+                    )
+                    success_message = f"Thank you, {name}! You have successfully registered for the event."
+                    messages.success(request, success_message)
+                    logger.info(f"New registration: {name} ({email}) - Interest: {interest}")
+                    return HttpResponse("You have successfully registered for the event")
+                except Exception as e:
+                    error_message = "An unexpected error occurred while saving your registration. Please try again."
+                    messages.error(request, error_message)
+                    logger.error(f"Error during registration for {email}: {str(e)}")
         else:
-            messages.error(request, "Please correct the errors below.")
+            # Log and show specific form validation errors
+            error_details = form.errors.as_json()
+            logger.error(f"Registration form validation failed: {error_details}")
+            messages.error(request, "Form submission failed. Please fix the errors below and try again.")
     
-    # Render the form with existing errors if any
+    # Render the form with any error messages and pre-filled data if available
     form = RegistrationForm()
     return render(request, 'events/register.html', {'form': form})
+
+
 
 # def register(request):
 #     if request.method == 'POST':
 #         form = RegistrationForm(request.POST)
 #         if form.is_valid():
-#             # Save the data to the Registrant model
-#             Registrant.objects.create(
-#                 name=form.cleaned_data['name'],
-#                 email=form.cleaned_data['email'],
-#                 interest=form.cleaned_data['interest']
-#             )
-#             messages.success(request, "Registration successful.")
-#             return redirect('login')
+#             email = form.cleaned_data['email']
+            
+#             # Check if email already exists
+#             if Registrant.objects.filter(email=email).exists():
+#                 messages.error(request, "Email is already registered. Please use a different email.")
+#             else:
+#                 # Save the data to the Registrant model
+#                 Registrant.objects.create(
+#                     name=form.cleaned_data['name'],
+#                     email=email,
+#                     interest=form.cleaned_data['interest']
+#                 )
+#                 messages.success(request, "You have successfully registered for this event.")
+#                 return redirect('login')
 #         else:
+#             logger.error("Admin registration failed. Errors: %s", form.errors.as_json())
 #             messages.error(request, "Please correct the errors below.")
-#     return render(request, 'events/register.html')
+    
+#     # Render the form with existing errors if any
+#     form = RegistrationForm()
+#     return render(request, 'events/register.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -135,15 +170,3 @@ def admin_login(request):
          else:
              messages.error(request, "Please correct the errors below.")
      return render(request, 'events/loginadmin.html')
-
-# def admin_login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None and user.is_superuser:
-#             login(request, user)
-#             return redirect('dashboard')
-#         else:
-#             messages.error(request, "Invalid credentials or not an admin user.")
-#     return render(request, 'events/loginadmin.html')

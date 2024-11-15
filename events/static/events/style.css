@@ -192,3 +192,33 @@
         th {
             background-color: #f4f4f4;
         }
+        .messages-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+        
+        .message {
+            background-color: #f44336; /* Default red for error */
+            color: #fff;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            line-height: 1.5;
+            cursor: pointer; /* Indicate it can be clicked */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out */
+        }
+        
+        .message.success {
+            background-color: #4caf50; /* Green for success */
+        }
+        
+        .message:hover {
+            opacity: 0.9;
+        }
+        

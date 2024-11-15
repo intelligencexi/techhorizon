@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<section id="register" class="form-section">
+{% comment %} <section id="register" class="form-section">
     <h2>Register for Tech Horizon</h2>
     <div class="form-container">
         <form action="{% url 'register' %}" method="post">
@@ -10,16 +10,33 @@
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <button type="submit">Register Now</button>
-        </form>
-        
+        </form>{% endcomment %}
+        <section id="register" class="form-section"> 
+            <h2>Register for Tech Horizon</h2>
+            <div class="form-container">
+                <form action="{% url 'register' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <select name="interest">
+                        <option value="" disabled selected>Select an Area of Interest</option>
+                        <option value="software-development">Software Development</option>
+                        <option value="cybersecurity">Cybersecurity</option>
+                        <option value="data-science">Data Science</option>
+                        <option value="ai">Artificial Intelligence</option>
+                    </select>
+                    <button type="submit">Register Now</button>
+                </form>
+            </div>
+        </section>
         <!-- Display messages for form feedback -->
         {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <p class="message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
     </div>
 </section>
 
