@@ -1,0 +1,29 @@
+{% extends 'events/base.html' %}
+{% load static %}
+{% block content %}
+
+<section id="register" class="form-section">
+    <h2>Register as Admin for Tech Horizon</h2>
+    <div class="form-container">
+        <form action="{% url 'admin-register' %}" method="post" id="registration-form">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Your Username" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+            <button type="submit">Register Now</button>
+        </form>
+        
+        <!-- Display messages for form feedback -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+
+{% endblock %}
