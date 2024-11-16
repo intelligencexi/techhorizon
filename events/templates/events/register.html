@@ -14,17 +14,21 @@
         <section id="register" class="form-section"> 
             <h2>Register for Tech Horizon</h2>
             <div class="form-container">
-                <form action="{% url 'register' %}" method="post">
+                <form action="{% url 'register' %}" method="post" id="registration-form">
                     {% csrf_token %}
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
-                    <select name="interest">
+                    <div class="error-message" style="display:none; color:red; font-size: 12px;">Please enter a valid email.</div>
+                    <select name="interest" id="interest" required>
                         <option value="" disabled selected>Select an Area of Interest</option>
                         <option value="software-development">Software Development</option>
                         <option value="cybersecurity">Cybersecurity</option>
                         <option value="data-science">Data Science</option>
                         <option value="ai">Artificial Intelligence</option>
                     </select>
+                    <div class="error-message" id="interest-error" style="display:none; color:red; font-size: 12px;">
+                        Please select an interest.
+                    </div>
                     <button type="submit">Register Now</button>
                 </form>
             </div>
