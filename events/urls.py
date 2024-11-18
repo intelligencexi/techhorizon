@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import *
-from .views import admin_login
+
 
 urlpatterns = [
     path('', views.landing, name='landing'),

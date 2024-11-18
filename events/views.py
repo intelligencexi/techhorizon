@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from .forms import RegistrationForm, LoginForm, AdminRegistrationForm
 from .models import Registrant
@@ -38,7 +39,7 @@ def register(request):
                     logger.info(f"New registration: {name} ({email}) - Interest: {interest}")
                     return render(request, 'events/register.html')
                 except Exception as e:
-                    error_message = "An unexpected error occurred while saving your registration. Please try again."
+                    error_message = logger.error(f"Error during registration for {email}: {str(e)}")
                     messages.error(request, error_message)
                     logger.error(f"Error during registration for {email}: {str(e)}")
         else:
@@ -96,22 +97,35 @@ def dashboard(request):
     return render(request, 'events/dashboard.html', {'registrants': registrants})
 
 
+
 def admin_register(request):
     if request.method == 'POST':
         form = AdminRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # Log in the newly registered admin
-            logger.info("New admin registered: Username: %s, Email: %s", user.username, user.email)
-            messages.success(request, "Admin registered successfully!")
-            return redirect('admin-login')  # Redirect to dashboard
+            try:
+                user = form.save()
+                login(request, user)  # Log in the newly registered admin
+                logger.info("New admin registered: Username: %s, Email: %s", user.username, user.email)
+                messages.success(request, "Admin registered successfully!")
+                return redirect('admin-login')  # Redirect to dashboard
+            except Exception as e:
+                logger.error(f"Unexpected error during admin registration: {str(e)}")
+                messages.error(request, "An unexpected error occurred. Please try again.")
         else:
+            # Log the specific errors
             logger.error("Admin registration failed. Errors: %s", form.errors.as_json())
-            messages.error(request, "Registration failed. Please fix the errors below.")
+
+            # Extract error messages for user feedback
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()}: {error}")
     else:
         form = AdminRegistrationForm()
 
     return render(request, 'events/adminregister.html', {'form': form})
+
+def csrf_failure(request, reason=""):
+    return HttpResponse("CSRF verification failed. Please reload the page and try again.", status=403)
 
 def admin_login(request):
      if request.method == 'POST':

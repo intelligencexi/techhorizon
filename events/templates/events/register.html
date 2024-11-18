@@ -2,15 +2,6 @@
 {% load static %}
 {% block content %}
 
-{% comment %} <section id="register" class="form-section">
-    <h2>Register for Tech Horizon</h2>
-    <div class="form-container">
-        <form action="{% url 'register' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <button type="submit">Register Now</button>
-        </form>{% endcomment %}
         <section id="register" class="form-section"> 
             <h2>Register for Tech Horizon</h2>
             <div class="form-container">

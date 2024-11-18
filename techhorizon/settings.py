@@ -27,10 +27,14 @@ SECRET_KEY = 'django-insecure-3vxk1x)4g9lj7$^8)x)1pmbx0ungxivbh)vz*lyx**n)t-5rov
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['techhorizon-58s4.onrender.com']
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://techhorizon-58s4.onrender.com',
 ]
+SESSION_COOKIE_SECURE = False  # Set True only for HTTPS
+CSRF_COOKIE_SECURE = False     # Set True only for HTTPS
+CSRF_FAILURE_VIEW = 'events.views.csrf_failure'
+
 
 
 # Application definition
