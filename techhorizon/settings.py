@@ -31,8 +31,8 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://techhorizon-58s4.onrender.com',
 ]
-SESSION_COOKIE_SECURE = False  # Set True only for HTTPS
-CSRF_COOKIE_SECURE = False     # Set True only for HTTPS
+SESSION_COOKIE_SECURE = True  # Set True only for HTTPS
+CSRF_COOKIE_SECURE = True  # Set True only for HTTPS
 CSRF_FAILURE_VIEW = 'events.views.csrf_failure'
 
 
