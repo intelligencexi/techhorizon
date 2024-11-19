@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
