@@ -70,6 +70,14 @@
                 </form>
             </div>
         </section>
+                <!-- Display messages for form feedback -->
+                {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <p class="message {{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
     
         {% comment %} <!-- Login Form Section -->
         <section id="login" class="form-section">
